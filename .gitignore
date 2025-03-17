@@ -1,0 +1,38 @@
+# Ignore all `_build/` and `out/` folders
+**/_build/
+**/out/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore Jupyter Notebook temporary files
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Ignore virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Ignore environment variables and secrets
+.env
+.envrc
+*.secret
+
+# Ignore Jupyter Book cache and execution logs
+_build/
+.jupyter_cache/
+.jupytext.sublime-project
+
+# Ignore macOS system files (if applicable)
+.DS_Store
+
+# Ignore VS Code settings (optional)
+.vscode/
+
+# Ignore save.sh file
+save.sh
+
