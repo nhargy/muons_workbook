@@ -5,4 +5,4 @@ format: jb-book
 root: intro
 
 chapters:
-- file: pages/Overview.md
+- file: pages/Overview

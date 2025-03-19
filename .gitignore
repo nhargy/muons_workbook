@@ -2,6 +2,7 @@
 **/_build/
 **/out/
 **/plots/
+**/lcd/
 
 # Ignore Python cache files
 __pycache__/
