@@ -181,6 +181,7 @@
         </ul>
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../pages/Overview.html">This is an overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../waveform_demo.html">Wavefrom {Class} Demo</a></li>
 </ul>
 
     </div>
@@ -383,8 +384,15 @@ document.write(`
 <p>Testing ground for project development.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">LocalDataPath</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span>
+<span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
+
 <span class="kn">from</span> <span class="nn">models.waveform</span> <span class="kn">import</span> <span class="n">Waveform</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
 </div>
 </div>
@@ -392,8 +400,9 @@ document.write(`
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">LocalDataPath</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">models.waveform</span> <span class="kn">import</span> <span class="n">Waveform</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">models.waveform</span> <span class="kn">import</span> <span class="n">Waveform</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;config.settings&#39;
 </pre></div>
@@ -402,12 +411,76 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LocalDataPath</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Event parameters</span>
+<span class="n">PEAK_THRESH</span> <span class="o">=</span> <span class="mi">125</span>
+<span class="n">INGRESS_THRESH</span> <span class="o">=</span> <span class="mi">25</span>
+
+<span class="c1"># Plotting window</span>
+<span class="n">PLOT_CUT</span> <span class="o">=</span> <span class="mi">150</span>
+
+<span class="k">if</span> <span class="n">run</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
+    <span class="c1"># Expected signal around zero</span>
+    <span class="n">T_MIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">75</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Expected signal after zero</span>
+    <span class="n">T_MIN</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">85</span>
+
+<span class="n">ROI</span> <span class="o">=</span> <span class="p">[</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">]</span>
+
+<span class="n">csvpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">/scope-1-seg1-ch1.csv&quot;</span><span class="p">)</span>
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Waveform</span><span class="p">(</span><span class="n">csvpath</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">read_from_csv</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">xfactor</span><span class="o">=</span><span class="mf">1e9</span><span class="p">,</span><span class="n">yfactor</span><span class="o">=-</span><span class="mf">1e3</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">calculate_baseline</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">zero_baseline</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">smooth</span><span class="p">()</span>
+
+<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="n">ROI</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">detect_main_peak</span><span class="p">(</span><span class="n">ROI</span><span class="p">,</span> <span class="mi">125</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">identify_ingress</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">ROI</span><span class="p">);</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">peak_idx</span><span class="p">,</span> <span class="n">peak_val</span>            <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_main_peak</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ingress_idx</span><span class="p">,</span> <span class="n">ingress_time_val</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_ingress</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
+
+<span class="c1">#plt.xlim(x[PLOT_CUT], x[-PLOT_CUT])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/home/hargy/Science/DataBox/Muons_Gesher_Data&#39;
+<img alt="../../../_images/e51f56067a792128a0355ee4d3b0a3190760850811027f0e19a7e5c4ae66c80e.png" src="../../../_images/e51f56067a792128a0355ee4d3b0a3190760850811027f0e19a7e5c4ae66c80e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(167)
 </pre></div>
 </div>
 </div>

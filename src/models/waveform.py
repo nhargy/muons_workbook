@@ -79,7 +79,7 @@ class Waveform:
                 try:
                     data   = np.array(list(reader), dtype=float)
                 except ValueError:
-                    logger.error(f"Value error occured when processing {self.name} numpy float array")
+                    pass
                     return # stops the function from running further
                 
                 try:
@@ -89,23 +89,20 @@ class Waveform:
                     self.raw_data       = data
                     self.processed_data = data
                     
-                    logger.info(f"{self.name} successfully read.")
-                    
                 except Exception as e:
-                    logger.error(f"Unexpected error when attempting to process {self.name}.")
-                    logger.error(e)
+                    print(e)
             
         except FileNotFoundError:
-            logger.error(f"{self.csvfile} not found!")
+            pass
         
         except PermissionError:
-            logger.error(f"Permission denied when trying to read {self.csvfile}.")
+            pass
         
         except OSError:
-            logger.error(f"OSError when trying to read {self.csvfile}.")
+            pass
             
         except Exception as e:
-            logger.error(f"Unexpected error when attempting to read {self.csvfile}: {e}")
+            pass
 
 
     def rescale(self, xfactor=1, yfactor=1):
@@ -124,13 +121,12 @@ class Waveform:
         
         # Update
         self.processed_data = rescaled_data
-        
-        logger.info(f"{self.name} rescaled by ({xfactor},{yfactor}).")
 
 
     def calculate_baseline(self, 
                            bins = DEFAULT_BASELINE_BINS, 
-                           p0   = DEFAULT_BASELINE_P0):
+                           p0   = DEFAULT_BASELINE_P0,
+                           verbose = False):
         """
         <Description>
 
@@ -144,7 +140,7 @@ class Waveform:
         # Generate numpy histogram
         hist, bin_edges = np.histogram(y, bins)
 
-        # Get mid-pounts of bin edges so as to make x and y arrays plottable
+        # Get mid-points of bin edges so as to make x and y arrays plottable
         bin_mids = bin_edges[:-1] + np.diff(bin_edges)/2
 
         # Catch all zero indices
@@ -159,8 +155,7 @@ class Waveform:
         
         #plt.plot(bin_mids, hist)
         #plt.show()
-        
-        logger.info(f"{self.name} Baseline histogram mean: {np.mean(hist)}")
+
 
         # Fit to Gaussian
         try:
@@ -168,15 +163,16 @@ class Waveform:
             baseline = popt[1] # the mean value of the fitted gaussian
             self.baseline = baseline
         except ValueError:
-            logger.error(f"{self.name} ValueError when fitting Gaussian to baseline histogram.")
+            print("ValueError")
         except RuntimeError:
-            logger.error(f"{self.name} Failed to converge when fitting Gaussian to baseline histogram.")
-            logger.error(f"{self.name} Setting baseline to 0.")
             self.baseline = 0
+            print("RuntimeError")
         except Exception as e:
-            logger.error(f"{self.name} Unexpected error when fitting Gaussian to baseline histogram: {e}")
-        
-        logger.info(f"{self.name} baseline: {self.baseline}")
+            print(e)
+
+        if verbose == True:
+            return bin_mids, hist
+
 
 
     def zero_baseline(self):
@@ -212,8 +208,6 @@ class Waveform:
         smoothed_data = np.array(list(zip(x, wf_smooth)))
         self.processed_data = smoothed_data
         
-        logger.info(f"{self.name} waveform smoothed according to sigma={sigma}.")
-
 
     def detect_main_peak(self,
                          ROI, 
@@ -241,21 +235,19 @@ class Waveform:
                                   width      = width, 
                                   distance   = distance, 
                                   prominence = prominence)
-            logger.info(f"{self.name} find_peaks scipy function executed successfully in ROI: {a},{b}.")
+
         except Exception as e:
-            logger.error(f"{self.name} Unexpected error when attempting to find peaks in waveform: {e}")
+            print(e)
 
         if len(peaks) > 0:
             try:
                 # Extract index of first peak
                 peak_idx = a + peaks[0]
                 self.main_peak_idx = peak_idx
-                logger.info(f"{self.name} Peaks identified and updated at peak index {peak_idx}.")
                 return 1 # successfully found peaks
             except Exception as e:
-                logger.error(f"{self.name} Unexpected error when attempting to access peaks in waveform: {e}")
+                pass
         else:
-            logger.info(f"{self.name} No peaks detected.")
             return 0 # no peaks detected
 
 
@@ -276,10 +268,8 @@ class Waveform:
 
             ingress_idx = a + np.argwhere(wf_cut >= threshold)[0][0]
             self.ingress_idx = ingress_idx
-            logger.info(f"{self.name} Identified ingress index at {ingress_idx}.")
             return 1
         else:
-            logger.info(f"{self.name} No ingress index to identify.")
             return 0            
 
 

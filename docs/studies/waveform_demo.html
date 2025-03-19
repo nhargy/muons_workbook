@@ -1,0 +1,917 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Wavefrom {Class} Demo &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'studies/waveform_demo';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="This is an overview" href="../pages/Overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Muon Detection for Underground Characterisations
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/Overview.html">This is an overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Wavefrom {Class} Demo</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fstudies/waveform_demo.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/studies/waveform_demo.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Wavefrom {Class} Demo</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-description">Class Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-of-the-waveform-processing-at-each-step">Viewing of the Waveform Processing at Each Step</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-waveform-loading">1. Raw Waveform Loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rescaling">2. Rescaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-calculation">3. Baseline Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-zeroing">4. Baseline Zeroing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing">5. Smoothing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-the-main-peak">6. Detecting the Main Peak</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-waveform-class-to-calculate-arrival-time-delay">Using the Waveform Class to Calculate Arrival Time Delay</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="wavefrom-class-demo">
+<h1>Wavefrom {Class} Demo<a class="headerlink" href="#wavefrom-class-demo" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">PlotsPath</span>
+<span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
+
+<span class="c1"># import the Waveform class</span>
+<span class="kn">from</span> <span class="nn">models.waveform</span> <span class="kn">import</span> <span class="n">Waveform</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">PlotsPath</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># import the Waveform class</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;config.settings&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="class-description">
+<h2>Class Description<a class="headerlink" href="#class-description" title="Link to this heading">#</a></h2>
+<p>The <em>Waveform</em> class is the first in the reconstruction analysis chain, serving as the precursor the <em>Event</em> class. It handles a single waveform readout from on PMT trigger:</p>
+<ul class="simple">
+<li><p>Reading of the csv and conversion to numpy arrays</p></li>
+<li><p>Rescaling (i.e. making the signal positive, converting time units to nanometres and voltage to millivolts)</p></li>
+<li><p>Baseline caluclation and corrections</p></li>
+<li><p>Smoothing</p></li>
+<li><p>Peak and ingress detection</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># -- Define parameters -- #</span>
+
+<span class="c1"># Choose the run number</span>
+<span class="n">run</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Thresholds</span>
+<span class="n">PEAK_THRESH</span>    <span class="o">=</span> <span class="mi">125</span> <span class="c1">#mV</span>
+<span class="n">INGRESS_THRESH</span> <span class="o">=</span> <span class="mi">25</span> <span class="c1">#mV</span>
+
+<span class="c1"># Plotting window x-cuts</span>
+<span class="n">PLOT_CUT</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Signal region of interest:</span>
+<span class="c1"># Runs up to Run17 are flux measurements and are expected to centre around 0,</span>
+<span class="c1"># while from Run17 onwards we have calibration measurements. Since the plates</span>
+<span class="c1"># are now below the triggering calibration plates we expect the signals after 0.</span>
+<span class="k">if</span> <span class="n">run</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
+    <span class="c1"># Expected signal around zero</span>
+    <span class="n">T_MIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">75</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Expected signal after zero</span>
+    <span class="n">T_MIN</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">85</span>
+
+<span class="c1"># Defines our Region Of Interest for identifying peaks.</span>
+<span class="n">ROI_t</span> <span class="o">=</span> <span class="p">[</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="viewing-of-the-waveform-processing-at-each-step">
+<h2>Viewing of the Waveform Processing at Each Step<a class="headerlink" href="#viewing-of-the-waveform-processing-at-each-step" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Raw waveform loading</p></li>
+<li><p>Rescaling to nanoseconds, +millivolts for easier interpretation</p></li>
+<li><p>Baseline calculation</p></li>
+<li><p>Baseline zeroing</p></li>
+<li><p>Smoothing for more reliable peak detection</p></li>
+<li><p>Detecting the main peak</p></li>
+<li><p>Identifying the ingress of the peak, i.e. the time at which it starts rising.</p></li>
+</ol>
+<section id="raw-waveform-loading">
+<h3>1. Raw Waveform Loading<a class="headerlink" href="#raw-waveform-loading" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick scope, segment and channel</span>
+<span class="n">scope</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># [1,2]</span>
+<span class="n">seg</span>   <span class="o">=</span> <span class="mi">12</span>
+<span class="n">ch</span>    <span class="o">=</span> <span class="mi">1</span> <span class="c1"># [1,8] for Runs [1,16], [1,4] for Runs [17, 30] </span>
+
+<span class="c1"># Raw waveform loading</span>
+<span class="n">csvpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">/scope-</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">-seg</span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">-ch</span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Waveform</span><span class="p">(</span><span class="n">csvpath</span><span class="p">)</span>
+
+<span class="c1"># Get the x,y data from class and plot</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [seconds]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [volts]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw Signal: Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">, Scope </span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">, Channel </span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">, Segment </span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e4ddcb7df8168320f1ad9c6d42c0fc2c24912bd92d23ef2a68aca79b1563fa1c.png" src="../_images/e4ddcb7df8168320f1ad9c6d42c0fc2c24912bd92d23ef2a68aca79b1563fa1c.png" />
+</div>
+</div>
+</section>
+<section id="rescaling">
+<h3>2. Rescaling<a class="headerlink" href="#rescaling" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xfactor</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="c1"># convert to nanoseconds</span>
+<span class="n">yfactor</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e3</span> <span class="c1"># convert to millivolts and flip signal to be positive</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">xfactor</span><span class="o">=</span><span class="n">xfactor</span><span class="p">,</span><span class="n">yfactor</span><span class="o">=</span><span class="n">yfactor</span><span class="p">)</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw Signal: Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">, Scope </span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">, Channel </span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">, Segment </span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b137474144f459c2906a3565fc9b974083ed13b0fb70899d09db898a43c7b319.png" src="../_images/b137474144f459c2906a3565fc9b974083ed13b0fb70899d09db898a43c7b319.png" />
+</div>
+</div>
+</section>
+<section id="baseline-calculation">
+<h3>3. Baseline Calculation<a class="headerlink" href="#baseline-calculation" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">calculate_baseline</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">baseline</span>       <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_baseline</span><span class="p">()</span>
+
+<span class="c1"># Plot the histogram of voltages, the baseline should be clearly visible.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Voltages histogram: Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">, Scope </span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">, Channel </span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">, Segment </span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4c491085e4a6e783a9b184fdbde163ace0058ba78e8f5f0521bf4e3080101a19.png" src="../_images/4c491085e4a6e783a9b184fdbde163ace0058ba78e8f5f0521bf4e3080101a19.png" />
+</div>
+</div>
+</section>
+<section id="baseline-zeroing">
+<h3>4. Baseline Zeroing<a class="headerlink" href="#baseline-zeroing" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ! If you run this block twice the difference would disappear, since the baseline would</span>
+<span class="c1"># ! have already been removed.</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot waveform before zeroing</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Before&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+
+<span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">calculate_baseline</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">baseline</span>       <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_baseline</span><span class="p">()</span>
+
+<span class="c1"># Plot the histogram of voltages before zeroing</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Before&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span>
+
+
+<span class="n">wf</span><span class="o">.</span><span class="n">zero_baseline</span><span class="p">()</span>
+
+<span class="c1"># Plot waveform before zeroing</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;After&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">, Scope </span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">, Channel </span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">, Segment </span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">calculate_baseline</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">baseline</span>       <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_baseline</span><span class="p">()</span>
+
+<span class="c1"># Plot the histogram of voltages before zeroing</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;After&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Voltages histogram: Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">, Scope </span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">, Channel </span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">, Segment </span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04c506c2763113af6bac97bca1013277cc5999e01764fcdb841ad3f6e5f3cc55.png" src="../_images/04c506c2763113af6bac97bca1013277cc5999e01764fcdb841ad3f6e5f3cc55.png" />
+</div>
+</div>
+</section>
+<section id="smoothing">
+<h3>5. Smoothing<a class="headerlink" href="#smoothing" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># Default is = 2</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sigma</span><span class="si">}</span><span class="s2"> Sigma Smoothing: Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">, Scope </span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">, Channel </span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">, Segment </span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/087e33ac1cec5669bc34366fb4c3a8818be0a53477de01bfe3ec9b3c7c80dae8.png" src="../_images/087e33ac1cec5669bc34366fb4c3a8818be0a53477de01bfe3ec9b3c7c80dae8.png" />
+</div>
+</div>
+</section>
+<section id="detecting-the-main-peak">
+<h3>6. Detecting the Main Peak<a class="headerlink" href="#detecting-the-main-peak" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert region of interest to index</span>
+<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="n">ROI_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]</span>
+
+<span class="c1"># Run peak detection method</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">detect_main_peak</span><span class="p">(</span><span class="n">ROI_idx</span><span class="p">,</span> <span class="mi">125</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">peak_idx</span><span class="p">,</span> <span class="n">peak_val</span>            <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_main_peak</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Peak Bin&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No peak detected&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">PLOT_CUT</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="n">PLOT_CUT</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b28b001bf8435d4b49c9910b23751f07dcd8beb18ed4e0a0eb45b979b3ebe7af.png" src="../_images/b28b001bf8435d4b49c9910b23751f07dcd8beb18ed4e0a0eb45b979b3ebe7af.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert region of interest to index</span>
+<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="n">ROI_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">identify_ingress</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">ROI_idx</span><span class="p">);</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ingress_idx</span><span class="p">,</span> <span class="n">ingress_time_val</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_ingress</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Ingress Bin: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ingress_time_val</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> [ns].&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to detect ingress time.&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">PLOT_CUT</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="n">PLOT_CUT</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e7b3b53236e47084a1fa1994860edf3fc442fc43395a7b02f3f64fb966f4c814.png" src="../_images/e7b3b53236e47084a1fa1994860edf3fc442fc43395a7b02f3f64fb966f4c814.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="using-the-waveform-class-to-calculate-arrival-time-delay">
+<h2>Using the Waveform Class to Calculate Arrival Time Delay<a class="headerlink" href="#using-the-waveform-class-to-calculate-arrival-time-delay" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a function to automatically fully process the csv waveform file</span>
+<span class="c1"># (Make sure to first run &#39;define parameters&#39; block at the top of the notebook)</span>
+<span class="k">def</span> <span class="nf">process_waveform</span><span class="p">(</span><span class="n">csvfile</span><span class="p">):</span>
+
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Waveform</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">read_from_csv</span><span class="p">()</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">xfactor</span><span class="o">=</span><span class="mf">1e9</span><span class="p">,</span><span class="n">yfactor</span><span class="o">=-</span><span class="mf">1e3</span><span class="p">)</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">calculate_baseline</span><span class="p">()</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">zero_baseline</span><span class="p">()</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">smooth</span><span class="p">()</span>
+    
+    <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+    
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    
+    <span class="n">ROI_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]</span>
+    
+    <span class="n">wf</span><span class="o">.</span><span class="n">detect_main_peak</span><span class="p">(</span><span class="n">ROI_idx</span><span class="p">,</span> <span class="mi">125</span><span class="p">)</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">identify_ingress</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">ROI_idx</span><span class="p">);</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">peak_idx</span><span class="p">,</span> <span class="n">peak_val</span>            <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_main_peak</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No peaks detected&quot;</span><span class="p">)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ingress_idx</span><span class="p">,</span> <span class="n">ingress_time_val</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_ingress</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> 
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Ingress Bin: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ingress_time_val</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> [ns].&quot;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No ingress detected&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ingress_time_val</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scope and segment must be the same for both channels to make sense</span>
+<span class="c1"># channels have to come in pairs (1,2), (2,3) etc to make sense</span>
+
+<span class="c1"># Pick scope, segment and channel</span>
+<span class="n">scope</span> <span class="o">=</span> <span class="mi">1</span> 
+<span class="n">seg</span>   <span class="o">=</span> <span class="mi">12</span> 
+<span class="n">ch</span>    <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Raw waveform loading</span>
+<span class="n">csvpath_1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">/scope-</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">-seg</span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">-ch</span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Pick scope, segment and channel</span>
+<span class="n">scope</span> <span class="o">=</span> <span class="mi">1</span> 
+<span class="n">seg</span>   <span class="o">=</span> <span class="mi">443</span> 
+<span class="n">ch</span>    <span class="o">=</span> <span class="n">ch</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># Raw waveform loading</span>
+<span class="n">csvpath_2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">/scope-</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">-seg</span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">-ch</span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Process waveforms</span>
+<span class="n">ingress_time_val_1</span> <span class="o">=</span> <span class="n">process_waveform</span><span class="p">(</span><span class="n">csvpath_1</span><span class="p">)</span>
+<span class="n">ingress_time_val_2</span> <span class="o">=</span> <span class="n">process_waveform</span><span class="p">(</span><span class="n">csvpath_2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">PLOT_CUT</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="n">PLOT_CUT</span><span class="p">])</span>
+
+<span class="c1"># Get the arrival time delay</span>
+<span class="n">atd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ingress_time_val_2</span> <span class="o">-</span> <span class="n">ingress_time_val_1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Arrival time delay: </span><span class="si">{</span><span class="n">atd</span><span class="si">}</span><span class="s2"> [ns]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Arrival time delay: 4.86 [ns]
+</pre></div>
+</div>
+<img alt="../_images/e284f6c0cad8d512ef65f9aa4eccbab9ec38fd9288505c3b2d6bc00fd73a8434.png" src="../_images/e284f6c0cad8d512ef65f9aa4eccbab9ec38fd9288505c3b2d6bc00fd73a8434.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./studies"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../pages/Overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">This is an overview</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-description">Class Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-of-the-waveform-processing-at-each-step">Viewing of the Waveform Processing at Each Step</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-waveform-loading">1. Raw Waveform Loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rescaling">2. Rescaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-calculation">3. Baseline Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-zeroing">4. Baseline Zeroing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing">5. Smoothing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-the-main-peak">6. Detecting the Main Peak</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-waveform-class-to-calculate-arrival-time-delay">Using the Waveform Class to Calculate Arrival Time Delay</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

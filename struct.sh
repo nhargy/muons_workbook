@@ -3,11 +3,11 @@
 # CONFIG:
 
 CONFIG_FILE="config.ini"
-LocalDataPath=$(grep '^LocalDataPath' "$CONFIG_FILE" | cut -d'=' -f2)
-echo "Local data path is: $LocalDataPath"
+DataPath=$(grep '^DataPath' "$CONFIG_FILE" | cut -d'=' -f2)
+echo "Data path is: $DataPath"
 
 
-DATA_PATH=$LocalDataPath
+DATA_PATH=$DataPath
 REPO_PATH=$(pwd)
 echo "Using DATA_PATH=$DATA_PATH"
 

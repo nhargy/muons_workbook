@@ -1,6 +1,8 @@
+README.md
 pyproject.toml
 src/__init__.py
 src/config/__init__.py
+src/config/plot_config.py
 src/config/settings.py
 src/models/__init__.py
 src/models/event.py
