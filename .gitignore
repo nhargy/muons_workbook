@@ -1,6 +1,7 @@
 # Ignore all `_build/` and `out/` folders
 **/_build/
 **/out/
+**/plots/
 
 # Ignore Python cache files
 __pycache__/
@@ -16,6 +17,7 @@ __pycache__/
 venv/
 env/
 ENV/
+muons_workboook-venv/
 
 # Ignore environment variables and secrets
 .env
@@ -36,3 +38,5 @@ _build/
 # Ignore save.sh file
 save.sh
 
+# Ignore config.ini
+config.ini
