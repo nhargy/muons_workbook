@@ -181,6 +181,7 @@
         </ul>
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../waveform_demo.html">Wavefrom {Class} Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../event_demo.html">Event {Class} Demo</a></li>
 </ul>
 
     </div>
@@ -383,14 +384,18 @@ document.write(`
 <p>Testing ground for project development.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">positions</span>
 <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
 
+<span class="kn">from</span> <span class="nn">models.event</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">models.waveform</span> <span class="kn">import</span> <span class="n">Waveform</span>
+
+<span class="kn">from</span> <span class="nn">utils.functions</span> <span class="kn">import</span> <span class="n">linear</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
 </div>
@@ -399,9 +404,9 @@ document.write(`
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">positions</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">models.waveform</span> <span class="kn">import</span> <span class="n">Waveform</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">models.event</span> <span class="kn">import</span> <span class="n">Event</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;config.settings&#39;
 </pre></div>
@@ -410,14 +415,10 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="o">=</span> <span class="mi">2</span>
-
-<span class="c1"># Event parameters</span>
-<span class="n">PEAK_THRESH</span> <span class="o">=</span> <span class="mi">125</span>
-<span class="n">INGRESS_THRESH</span> <span class="o">=</span> <span class="mi">25</span>
-
-<span class="c1"># Plotting window</span>
-<span class="n">PLOT_CUT</span> <span class="o">=</span> <span class="mi">150</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">seg</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">run_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">run_path</span><span class="p">,</span> <span class="n">seg</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">run</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
     <span class="c1"># Expected signal around zero</span>
@@ -428,58 +429,79 @@ document.write(`
     <span class="n">T_MIN</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">85</span>
 
-<span class="n">ROI</span> <span class="o">=</span> <span class="p">[</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">]</span>
+<span class="c1"># Defines our Region Of Interest for identifying peaks.</span>
+<span class="n">ROI_t</span> <span class="o">=</span> <span class="p">[</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">]</span>
 
-<span class="n">csvpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">/scope-1-seg1-ch1.csv&quot;</span><span class="p">)</span>
-<span class="n">wf</span> <span class="o">=</span> <span class="n">Waveform</span><span class="p">(</span><span class="n">csvpath</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">read_from_csv</span><span class="p">()</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">xfactor</span><span class="o">=</span><span class="mf">1e9</span><span class="p">,</span><span class="n">yfactor</span><span class="o">=-</span><span class="mf">1e3</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">calculate_baseline</span><span class="p">()</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">zero_baseline</span><span class="p">()</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">smooth</span><span class="p">()</span>
+<span class="n">event</span><span class="o">.</span><span class="n">read_timestamp</span><span class="p">()</span>
+<span class="n">event</span><span class="o">.</span><span class="n">gather_waveforms</span><span class="p">()</span>
 
-<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">event</span><span class="o">.</span><span class="n">set_ROI</span><span class="p">(</span><span class="n">ROI_t</span><span class="p">)</span>
+<span class="n">event</span><span class="o">.</span><span class="n">set_peak_threshold</span><span class="p">(</span><span class="mi">125</span><span class="p">)</span>
+<span class="n">event</span><span class="o">.</span><span class="n">set_ingress_threshold</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
 
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ROI</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">43</span> <span class="c1">#cm</span>
+<span class="n">H</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1">#cm, initial height</span>
+<span class="n">positions</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">L</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="n">H</span><span class="p">,</span> <span class="n">L</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="n">H</span><span class="p">,</span> <span class="n">L</span><span class="o">*</span><span class="mi">1</span><span class="o">+</span><span class="n">H</span><span class="p">,</span> <span class="n">L</span><span class="o">*</span><span class="mi">0</span><span class="o">+</span><span class="n">H</span><span class="p">])</span> 
+<span class="n">linear_popt</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.479600057173962</span><span class="p">,</span> <span class="mf">73.07141538876651</span><span class="p">]</span>
+<span class="n">event</span><span class="o">.</span><span class="n">set_track_params</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span><span class="p">)</span>
 
-<span class="n">ROI</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]</span>
-
-<span class="n">wf</span><span class="o">.</span><span class="n">detect_main_peak</span><span class="p">(</span><span class="n">ROI</span><span class="p">,</span> <span class="mi">125</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">identify_ingress</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">ROI</span><span class="p">);</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">peak_idx</span><span class="p">,</span> <span class="n">peak_val</span>            <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_main_peak</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">ingress_idx</span><span class="p">,</span> <span class="n">ingress_time_val</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_ingress</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-
-<span class="c1">#plt.xlim(x[PLOT_CUT], x[-PLOT_CUT])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+<span class="n">event</span><span class="o">.</span><span class="n">calculate_peak_and_ingress</span><span class="p">()</span>
+<span class="n">event</span><span class="o">.</span><span class="n">calculate_ingress_matrix</span><span class="p">()</span>
+<span class="n">event</span><span class="o">.</span><span class="n">calculate_delta_t_array</span><span class="p">()</span>
+<span class="n">event</span><span class="o">.</span><span class="n">calculate_track</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../../_images/e51f56067a792128a0355ee4d3b0a3190760850811027f0e19a7e5c4ae66c80e.png" src="../../../_images/e51f56067a792128a0355ee4d3b0a3190760850811027f0e19a7e5c4ae66c80e.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the image</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/home/hargy/Downloads/plate1.png&quot;</span><span class="p">)</span>  <span class="c1"># Replace with your image</span>
+
+<span class="n">hit_coordinates</span>  <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">hit_coordinates</span>
+<span class="n">track_popt</span>       <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">track_popt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">track_popt</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">hit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">positions</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">hit_coordinates</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">hit</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Overlay the image at specific coordinates</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="k">for</span> <span class="n">i_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/home/hargy/Downloads/plate</span><span class="si">{</span><span class="n">i_num</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>  <span class="c1"># Replace with your image</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="n">positions</span><span class="p">[</span><span class="n">i_num</span><span class="p">]</span><span class="o">-</span><span class="n">w</span><span class="p">,</span> <span class="n">positions</span><span class="p">[</span><span class="n">i_num</span><span class="p">]</span><span class="o">+</span><span class="n">w</span><span class="p">],</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># Adjust position with extent</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span> <span class="mi">166</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">&#39;dashed&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(167)
+<img alt="../../../_images/b04d54c25a5b94d6d8a22e89915fe162f5d65cf9ad5a3afec07906cce4eae7b7.png" src="../../../_images/b04d54c25a5b94d6d8a22e89915fe162f5d65cf9ad5a3afec07906cce4eae7b7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="n">json_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OutPath</span><span class="p">,</span> <span class="s1">&#39;calibration.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;popt&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[6.481662525826123, 73.09971165618377]
 </pre></div>
 </div>
 </div>

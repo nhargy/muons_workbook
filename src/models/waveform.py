@@ -159,16 +159,25 @@ class Waveform:
 
         # Fit to Gaussian
         try:
-            popt, pcov = curve_fit(gaussian, bin_mids, hist, p0=p0)
-            baseline = popt[1] # the mean value of the fitted gaussian
-            self.baseline = baseline
+            try:
+                popt, pcov = curve_fit(gaussian, bin_mids, hist, p0=p0)
+                baseline = popt[1] # the mean value of the fitted gaussian
+                self.baseline = baseline
+            except:
+                max_idx = np.argmax(hist)
+                baseline = bin_mids[max_idx]
+                self.baseline = baseline
+        except Exception as e:
+            print("Failed to calculate baseline")
+            print(e)
+
+        """
         except ValueError:
             print("ValueError")
         except RuntimeError:
             self.baseline = 0
             print("RuntimeError")
-        except Exception as e:
-            print(e)
+        """
 
         if verbose == True:
             return bin_mids, hist
