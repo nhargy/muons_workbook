@@ -382,7 +382,7 @@ document.write(`
 <h1>Event {Class} Demo<a class="headerlink" href="#event-class-demo" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">PagesPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span><span class="p">,</span> <span class="n">peak_threshold</span><span class="p">,</span> <span class="n">ingress_threshold</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">PagesPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span>
 <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">models.event</span> <span class="kn">import</span> <span class="n">Event</span>
@@ -396,6 +396,15 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">prettytable</span> <span class="kn">import</span> <span class="n">PrettyTable</span>
+
+
+<span class="c1"># Import parameters</span>
+<span class="kn">from</span> <span class="nn">config.run_params_1</span> <span class="kn">import</span> <span class="p">(</span>
+                            <span class="n">PEAK_THRESH</span><span class="p">,</span>
+                            <span class="n">INGRESS_THRESH</span><span class="p">,</span>
+                            <span class="n">ROI_t_runs</span><span class="p">,</span>
+                            <span class="n">ROI_t_calib</span>
+                            <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -403,7 +412,7 @@ document.write(`
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">PagesPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span><span class="p">,</span> <span class="n">peak_threshold</span><span class="p">,</span> <span class="n">ingress_threshold</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">PagesPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">models.event</span> <span class="kn">import</span> <span class="n">Event</span>
 
@@ -415,21 +424,16 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">seg</span> <span class="o">=</span> <span class="mi">56</span>
+<span class="n">seg</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">run_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">run_path</span><span class="p">,</span> <span class="n">seg</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">run</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
     <span class="c1"># Expected signal around zero</span>
-    <span class="n">T_MIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
-    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">75</span>
+    <span class="n">ROI_t</span> <span class="o">=</span> <span class="n">ROI_t_runs</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="c1"># Expected signal after zero</span>
-    <span class="n">T_MIN</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">85</span>
-
-<span class="c1"># Defines our Region Of Interest for identifying peaks.</span>
-<span class="n">ROI_t</span> <span class="o">=</span> <span class="p">[</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">]</span>
+    <span class="n">ROI_t</span> <span class="o">=</span> <span class="n">ROI_t_calib</span>
 
 <span class="c1"># Get the (relative) timestamp of the event</span>
 <span class="n">event</span><span class="o">.</span><span class="n">read_timestamp</span><span class="p">()</span>
@@ -439,8 +443,8 @@ document.write(`
 
 <span class="c1"># Set the region of interest and thresholds</span>
 <span class="n">event</span><span class="o">.</span><span class="n">set_ROI</span><span class="p">(</span><span class="n">ROI_t</span><span class="p">)</span>
-<span class="n">event</span><span class="o">.</span><span class="n">set_peak_threshold</span><span class="p">(</span><span class="n">peak_threshold</span><span class="p">)</span>
-<span class="n">event</span><span class="o">.</span><span class="n">set_ingress_threshold</span><span class="p">(</span><span class="n">ingress_threshold</span><span class="p">)</span>
+<span class="n">event</span><span class="o">.</span><span class="n">set_peak_threshold</span><span class="p">(</span><span class="n">PEAK_THRESH</span><span class="p">)</span>
+<span class="n">event</span><span class="o">.</span><span class="n">set_ingress_threshold</span><span class="p">(</span><span class="n">INGRESS_THRESH</span><span class="p">)</span>
 
 <span class="c1"># Set the track parameters</span>
 <span class="c1"># positions -&gt; height coordinates of plates</span>
@@ -457,7 +461,41 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hit_coordinates</span>  <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">hit_coordinates</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the waveform matrix</span>
+<span class="n">mtx</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_waveform_matrix</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span> 
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">plate</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mtx</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">wf</span> <span class="o">=</span> <span class="n">plate</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">peak_idx</span><span class="p">,</span> <span class="n">peak_val</span>            <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_main_peak</span><span class="p">()</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">],</span> 
+                                <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Peak Bin: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">peak_val</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> [ns].&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No peaks detected&quot;</span><span class="p">)</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ingress_time_val</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">ingress_val</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ingress_time_val</span><span class="p">,</span> <span class="n">INGRESS_THRESH</span><span class="p">,</span> 
+                    <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Ingress Bin: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ingress_time_val</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> [ns].&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No ingress detected&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">supxlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">supylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [millivolts]&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+
+
+<span class="n">hit_coordinates</span>  <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">hit_coordinates</span>
 <span class="n">track_popt</span>       <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">track_popt</span>
 <span class="n">hit_bools</span>        <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_hit_bools</span><span class="p">()</span>
 <span class="n">timestamp</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">(),</span><span class="mi">2</span><span class="p">)</span>
@@ -500,16 +538,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------+--------+
-|  Property | Value  |
-+-----------+--------+
-| Timestamp |  1.66  |
-|   Angle   | -31.65 |
-|    Hits   |   4    |
-+-----------+--------+
+<img alt="../_images/bfb0136d4f388c42511b93ac7b498e481be24c7d9608b9b0729f21701595dfc9.png" src="../_images/bfb0136d4f388c42511b93ac7b498e481be24c7d9608b9b0729f21701595dfc9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------+-------+
+|  Property | Value |
++-----------+-------+
+| Timestamp |  0.2  |
+|   Angle   | -9.48 |
+|    Hits   |   4   |
++-----------+-------+
 </pre></div>
 </div>
-<img alt="../_images/f385774ab850204deeccbcfa493503f5cde9de65a82d2cb62c3fab9c970582a3.png" src="../_images/f385774ab850204deeccbcfa493503f5cde9de65a82d2cb62c3fab9c970582a3.png" />
+<img alt="../_images/cf80d62983b6ecba28fe97319610b3f2dce7adc15c61b9c8ef518087531348aa.png" src="../_images/cf80d62983b6ecba28fe97319610b3f2dce7adc15c61b9c8ef518087531348aa.png" />
 </div>
 </div>
 </section>

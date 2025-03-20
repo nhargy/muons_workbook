@@ -5,6 +5,7 @@ import numpy as np
 from scipy.optimize import curve_fit
 from scipy.ndimage import gaussian_filter1d
 from scipy.signal import find_peaks
+from scipy.interpolate import interp1d
 import warnings
 
 # Ignore warnings
@@ -41,6 +42,7 @@ class Waveform:
         self.baseline           = None
         self.main_peak_idx      = None
         self.ingress_idx        = None
+        self.ingress_val        = None
         
         self.name               = self.csvfile.split("lcd")[1]
 
@@ -248,15 +250,15 @@ class Waveform:
         else:
             return 0 # no peaks detected
 
-
+    """
     def identify_ingress(self, threshold, ROI):
-        """
+
         <Description>
 
         Args:
 
         Returns:
-        """
+
         a = int(ROI[0])
         peak_idx, peak_val = self.get_main_peak()
 
@@ -268,7 +270,38 @@ class Waveform:
             self.ingress_idx = ingress_idx
             return 1
         else:
-            return 0            
+            return 0
+    """
+    
+    def identify_ingress(self, threshold, ROI):
+        """
+        <Description>
+
+        Args:
+
+        Returns:
+        """
+        a = int(ROI[0])
+        peak_idx, peak_val = self.get_main_peak()
+
+
+        if peak_idx != None:
+            x, y   = self.get_data(zipped=False)
+            wf_cut = y[a:peak_idx]
+
+            """(CHATGPT START)"""
+            # Find indices where y crosses the threshold
+            idx_below = np.where(wf_cut < threshold)[0][-1]  # Last index where y is below threshold
+            idx_above = np.where(wf_cut > threshold)[0][0]  # First index where y is above threshold
+
+            # Perform linear interpolation
+            x_target = np.interp(threshold, [y[a+idx_below], y[a+idx_above]], [x[a+idx_below], x[a+idx_above]])
+            """(CHATGPT END)"""
+
+            self.ingress_val = x_target
+            return 1
+        else:
+            return 0          
 
 
     """ =========== """

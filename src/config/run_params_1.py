@@ -15,8 +15,8 @@ DEFAULT_PROMINENCE    = 12
 
 # Thresholds
 PEAK_THRESH    = 125 #mV
-INGRESS_THRESH = 25 #mV
+INGRESS_THRESH = 50 #mV
 
 # Region Of Interest
-ROI_t_runs  = [-50, 75]
-ROI_t_calib = [1, 85]
+ROI_t_runs  = [-60, 50]
+ROI_t_calib = [2, 85]

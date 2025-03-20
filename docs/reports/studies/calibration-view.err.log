@@ -28,38 +28,19 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from config.settings import ProjectRoot, LocalDataPath, OutPath, PlotsPath, PagesPath, positions, linear_popt
+from config.settings import positions, linear_popt
 from config.plot_config import set_plot_style; set_plot_style()
 
-from models.event import Event
-from models.waveform import Waveform
-
 from utils.functions import linear
-
-import os
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import seaborn as sns
-from prettytable import PrettyTable
-
-
-# Import parameters
-from config.run_params_1 import (
-                            PEAK_THRESH,
-                            INGRESS_THRESH,
-                            ROI_t_runs,
-                            ROI_t_calib
-                            )
 ------------------
 
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
 Cell [0;32mIn[1], line 1[0m
-[0;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01mconfig[39;00m[38;5;21;01m.[39;00m[38;5;21;01msettings[39;00m [38;5;28;01mimport[39;00m ProjectRoot, LocalDataPath, OutPath, PlotsPath, PagesPath, positions, linear_popt
+[0;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01mconfig[39;00m[38;5;21;01m.[39;00m[38;5;21;01msettings[39;00m [38;5;28;01mimport[39;00m positions, linear_popt
 [1;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mconfig[39;00m[38;5;21;01m.[39;00m[38;5;21;01mplot_config[39;00m [38;5;28;01mimport[39;00m set_plot_style; set_plot_style()
-[1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmodels[39;00m[38;5;21;01m.[39;00m[38;5;21;01mevent[39;00m [38;5;28;01mimport[39;00m Event
+[1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mutils[39;00m[38;5;21;01m.[39;00m[38;5;21;01mfunctions[39;00m [38;5;28;01mimport[39;00m linear
 
 [0;31mModuleNotFoundError[0m: No module named 'config.settings'
 

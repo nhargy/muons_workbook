@@ -407,6 +407,14 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Import parameters</span>
+<span class="kn">from</span> <span class="nn">config.run_params_1</span> <span class="kn">import</span> <span class="p">(</span>
+                            <span class="n">PEAK_THRESH</span><span class="p">,</span>
+                            <span class="n">INGRESS_THRESH</span><span class="p">,</span>
+                            <span class="n">ROI_t_runs</span><span class="p">,</span>
+                            <span class="n">ROI_t_calib</span>
+                            <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -438,11 +446,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># -- Define parameters -- #</span>
 
 <span class="c1"># Choose the run number</span>
-<span class="n">run</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="c1"># Thresholds</span>
-<span class="n">PEAK_THRESH</span>    <span class="o">=</span> <span class="mi">125</span> <span class="c1">#mV</span>
-<span class="n">INGRESS_THRESH</span> <span class="o">=</span> <span class="mi">25</span> <span class="c1">#mV</span>
+<span class="n">run</span> <span class="o">=</span> <span class="mi">13</span>
 
 <span class="c1"># Plotting window x-cuts</span>
 <span class="n">PLOT_CUT</span> <span class="o">=</span> <span class="mi">100</span>
@@ -453,15 +457,10 @@ document.write(`
 <span class="c1"># are now below the triggering calibration plates we expect the signals after 0.</span>
 <span class="k">if</span> <span class="n">run</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
     <span class="c1"># Expected signal around zero</span>
-    <span class="n">T_MIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
-    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">75</span>
+    <span class="n">ROI_t</span> <span class="o">=</span> <span class="n">ROI_t_runs</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="c1"># Expected signal after zero</span>
-    <span class="n">T_MIN</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">85</span>
-
-<span class="c1"># Defines our Region Of Interest for identifying peaks.</span>
-<span class="n">ROI_t</span> <span class="o">=</span> <span class="p">[</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">]</span>
+    <span class="n">ROI_t</span> <span class="o">=</span> <span class="n">ROI_t_calib</span>
 </pre></div>
 </div>
 </div>
@@ -484,7 +483,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick scope, segment and channel</span>
 <span class="n">scope</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># [1,2]</span>
-<span class="n">seg</span>   <span class="o">=</span> <span class="mi">12</span>
+<span class="n">seg</span>   <span class="o">=</span> <span class="mi">2</span>
 <span class="n">ch</span>    <span class="o">=</span> <span class="mi">1</span> <span class="c1"># [1,8] for Runs [1,16], [1,4] for Runs [17, 30] </span>
 
 <span class="c1"># Raw waveform loading</span>
@@ -513,8 +512,6 @@ document.write(`
 
 <span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">calculate_baseline</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">baseline</span>       <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_baseline</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">baseline</span><span class="p">)</span>
 
 <span class="c1"># Plot the histogram of voltages, the baseline should be clearly visible.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_mids</span><span class="p">,</span> <span class="n">hist</span><span class="p">)</span>
@@ -595,7 +592,7 @@ document.write(`
 <span class="k">except</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No peak detected&quot;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">ROI_t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
@@ -611,54 +608,47 @@ document.write(`
 
 <span class="n">ROI_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]</span>
 
-<span class="n">wf</span><span class="o">.</span><span class="n">identify_ingress</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">ROI_idx</span><span class="p">);</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">identify_ingress</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">ROI_idx</span><span class="p">)</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">ingress_idx</span><span class="p">,</span> <span class="n">ingress_time_val</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_ingress</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ingress_idx</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+    <span class="n">ingress_time_val</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">ingress_val</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ingress_time_val</span><span class="p">,</span> <span class="n">INGRESS_THRESH</span> <span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> 
                 <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Ingress Bin: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ingress_time_val</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> [ns].&quot;</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to detect ingress time.&quot;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">ROI_t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ROI_t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">PLOT_CUT</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="n">PLOT_CUT</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ff3cbd6205eab458d58680ca780d70f365ee48a3d65f04e2a22566ccab8b6d1.png" src="../_images/3ff3cbd6205eab458d58680ca780d70f365ee48a3d65f04e2a22566ccab8b6d1.png" />
-<img alt="../_images/2558dbc421a07edc47536c9252ec8adf4b5a933ecbddc3395946b034342d6019.png" src="../_images/2558dbc421a07edc47536c9252ec8adf4b5a933ecbddc3395946b034342d6019.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-48.0
+<img alt="../_images/ec1efd63f22b35745aecc3ba9db2442aef0f2bf2bda182fd0dafb8b98b7d0a38.png" src="../_images/ec1efd63f22b35745aecc3ba9db2442aef0f2bf2bda182fd0dafb8b98b7d0a38.png" />
+<img alt="../_images/5e504c6f95f309c2bc9360f22833461c78b823ecb29464e684dd9ea72efa4b52.png" src="../_images/5e504c6f95f309c2bc9360f22833461c78b823ecb29464e684dd9ea72efa4b52.png" />
+<img alt="../_images/0f5671c4cfe4d68114b74840794fee097896496677300cd992a826868cc9c41b.png" src="../_images/0f5671c4cfe4d68114b74840794fee097896496677300cd992a826868cc9c41b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12.362853839414116
 </pre></div>
 </div>
-<img alt="../_images/a50b5834c1b2a0a1473e35f925a1bb1b96f2b78f9c32ae76179f41d8b696b29a.png" src="../_images/a50b5834c1b2a0a1473e35f925a1bb1b96f2b78f9c32ae76179f41d8b696b29a.png" />
-<img alt="../_images/5f47b13e7845f883e4e74051276eb8a24ae0c1da40138cf8b418451a39502db9.png" src="../_images/5f47b13e7845f883e4e74051276eb8a24ae0c1da40138cf8b418451a39502db9.png" />
-<img alt="../_images/124b19e70c25b0edd8e5d4f14ff0edbb0ac46c9987a31662749ad235f584f4c6.png" src="../_images/124b19e70c25b0edd8e5d4f14ff0edbb0ac46c9987a31662749ad235f584f4c6.png" />
-<img alt="../_images/5ad171edbc339ee13be04f0d647005bc3e1630adfe7d7004390ef0e65dfe69e6.png" src="../_images/5ad171edbc339ee13be04f0d647005bc3e1630adfe7d7004390ef0e65dfe69e6.png" />
+<img alt="../_images/abc059ae70b148a6c8fe5118381b91fd2c024c4cde8f829f4f6f8ab91e3a877a.png" src="../_images/abc059ae70b148a6c8fe5118381b91fd2c024c4cde8f829f4f6f8ab91e3a877a.png" />
+<img alt="../_images/07afd5777252fa2775a3c713d5696f4e570058d5966705c1dcc0550c271884ac.png" src="../_images/07afd5777252fa2775a3c713d5696f4e570058d5966705c1dcc0550c271884ac.png" />
+<img alt="../_images/2c800b60829ec1fb84a79aafc98693f97b72664e2d1bbedd66f517e212adb427.png" src="../_images/2c800b60829ec1fb84a79aafc98693f97b72664e2d1bbedd66f517e212adb427.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">baseline</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">50</span><span class="p">])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(2)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(1.2000000000000002)
 </pre></div>
 </div>
 </div>

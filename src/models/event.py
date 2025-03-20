@@ -57,9 +57,8 @@ class Event:
 
     def process_waveform(self, waveform):
         waveform.rescale(1e9, -1e3)
-        waveform.smooth()
         try:
-            waveform.calculate_baseline()
+            waveform.calculate_baseline(verbose=True)
         except:
             print("Failed to calculate baseline")
 
@@ -68,6 +67,7 @@ class Event:
         except:
             print("Failed to zero baseline")
             print(waveform.csvfile)
+        waveform.smooth()
 
 
     def calculate_peak_and_ingress(self):
@@ -113,8 +113,12 @@ class Event:
         for i, plate in enumerate(self.waveform_matrix):
             for j, wf in enumerate(plate):
                 try:
-                    _, ingress_val = wf.get_ingress()
-                    ingress_arr.append(ingress_val)
+                    #_, ingress_val = wf.get_ingress()
+                    ingress_val     = wf.ingress_val
+                    if ingress_val != None:
+                        ingress_arr.append(ingress_val)
+                    else:
+                        ingress_arr.append(np.nan)
                 except:
                     ingress_arr.append(np.nan)
 

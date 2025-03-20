@@ -143,6 +143,7 @@ ax.set_xlabel(r"$\Delta t$ [ns]", fontsize = LABELFONT)
 ax.legend()
 ax.grid("on", linestyle='--', alpha=0.75)
 
+
 plt.tight_layout()
 
 save_path = os.path.join(plt_path, "calibrate_fit.png")
