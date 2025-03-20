@@ -7,6 +7,12 @@ from scipy.optimize import curve_fit
 from config.settings import ProjectRoot, LocalDataPath, OutPath, PlotsPath
 from config.plot_config import set_plot_style; set_plot_style()
 
+from config.run_params_1 import (
+                         PEAK_THRESH,
+                         INGRESS_THRESH,
+                         ROI_t_calib
+                     )
+
 
 try:
     from models.event import Event
@@ -21,17 +27,11 @@ lcd_path  = LocalDataPath
 out_path  = OutPath
 plt_path  = PlotsPath
 
-# Event parameters
-PEAK_THRESH = 125
-INGRESS_THRESH = 25
-
 # Plot parameters
 LABELFONT = 14
 TITLEFONT = 16
 
-# Expected signal after zero
-T_MIN = 1
-T_MAX = 85
+
 
 labels = ['L', 'CL', 'C', 'CR', 'R']
 colors = ['purple', 'blue', 'green', 'darkorange', 'red']
@@ -63,7 +63,7 @@ def collect_dts(runs):
                 event.gather_waveforms()
 
                 # set Region Of Interest (ROI)
-                event.set_ROI((T_MIN, T_MAX))
+                event.set_ROI(ROI_t_calib)
 
                 # calculate
                 event.calculate_peak_and_ingress()
@@ -100,6 +100,21 @@ R  = collect_dts([28,29,30])
 
 hist_arr = [L, CL, C, CR, R]
 mean_arr = []
+
+save_path = os.path.join(OutPath, "L.npy")
+np.save(save_path, L)
+
+save_path = os.path.join(OutPath, "CL.npy")
+np.save(save_path, CL)
+
+save_path = os.path.join(OutPath, "C.npy")
+np.save(save_path, C)
+
+save_path = os.path.join(OutPath, "CR.npy")
+np.save(save_path, CR)
+
+save_path = os.path.join(OutPath, "R.npy")
+np.save(save_path, R)
 
 fig, ax = plt.subplots(figsize=(8,5))
 bins = np.arange(-20.5,20.5,1)
