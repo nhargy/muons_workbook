@@ -7,32 +7,21 @@ from scipy.ndimage import gaussian_filter1d
 from scipy.signal import find_peaks
 import warnings
 
-# Local modules
-from utils.functions import gaussian
-
 # Ignore warnings
 warnings.filterwarnings("ignore")
 
+# Local modules
+from utils.functions import gaussian
 
-
-""" ============= """
-""" CONFIGURATION """
-""" ============= """
-
-DEFAULT_BASELINE_BINS = np.arange(-49.5, 299.5,1)
-
-DEFAULT_BASELINE_P0   = [100,0,20]
-
-DEFAULT_SMOOTH_SIGMA  = 2
-
-DEFAULT_WIDTH         = 6
-
-DEFAULT_DISTANCE      = 10
-
-DEFAULT_PROMINENCE    = 12
-
-""" ============ """
-
+# Import parameters
+from config.run_params_1 import (
+                            DEFAULT_BASELINE_BINS,
+                            DEFAULT_BASELINE_P0,
+                            DEFAULT_SMOOTH_SIGMA,
+                            DEFAULT_WIDTH,
+                            DEFAULT_DISTANCE,
+                            DEFAULT_PROMINENCE 
+                            )
 
 class Waveform:
     """

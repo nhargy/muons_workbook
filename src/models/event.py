@@ -13,7 +13,6 @@ warnings.filterwarnings("ignore")
 from models.waveform import Waveform
 from utils.functions import linear, gaussian
 
-
 class Event:
     """
     <Description>

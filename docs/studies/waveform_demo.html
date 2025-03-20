@@ -413,6 +413,14 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Import parameters</span>
+<span class="kn">from</span> <span class="nn">config.run_params_1</span> <span class="kn">import</span> <span class="p">(</span>
+                            <span class="n">PEAK_THRESH</span><span class="p">,</span>
+                            <span class="n">INGRESS_THRESH</span><span class="p">,</span>
+                            <span class="n">ROI_t_runs</span><span class="p">,</span>
+                            <span class="n">ROI_t_calib</span>
+                            <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -459,15 +467,10 @@ document.write(`
 <span class="c1"># are now below the triggering calibration plates we expect the signals after 0.</span>
 <span class="k">if</span> <span class="n">run</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
     <span class="c1"># Expected signal around zero</span>
-    <span class="n">T_MIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
-    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">75</span>
+    <span class="n">ROI_t</span> <span class="o">=</span> <span class="n">ROI_t_runs</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="c1"># Expected signal after zero</span>
-    <span class="n">T_MIN</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">T_MAX</span> <span class="o">=</span> <span class="mi">85</span>
-
-<span class="c1"># Defines our Region Of Interest for identifying peaks.</span>
-<span class="n">ROI_t</span> <span class="o">=</span> <span class="p">[</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">]</span>
+    <span class="n">ROI_t</span> <span class="o">=</span> <span class="n">ROI_t_calib</span>
 </pre></div>
 </div>
 </div>
@@ -654,7 +657,7 @@ document.write(`
 <span class="k">except</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No peak detected&quot;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">ROI_t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
@@ -666,7 +669,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b28b001bf8435d4b49c9910b23751f07dcd8beb18ed4e0a0eb45b979b3ebe7af.png" src="../_images/b28b001bf8435d4b49c9910b23751f07dcd8beb18ed4e0a0eb45b979b3ebe7af.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">17</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="k">except</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No peak detected&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">T_MIN</span><span class="p">,</span> <span class="n">T_MAX</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lawngreen&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;ROI&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time [nanoseconds]&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;T_MIN&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/723b6ff832462c8b78e7437443ff81a653df19dccc55eb9edbeb2c6f2d513ebe.png" src="../_images/723b6ff832462c8b78e7437443ff81a653df19dccc55eb9edbeb2c6f2d513ebe.png" />
 </div>
 </div>
 <div class="cell docutils container">
