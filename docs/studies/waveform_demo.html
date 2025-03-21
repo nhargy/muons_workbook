@@ -402,6 +402,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="wavefrom-class-demo">
 <h1>Wavefrom {Class} Demo<a class="headerlink" href="#wavefrom-class-demo" title="Link to this heading">#</a></h1>
+<section id="class-description">
+<h2>Class Description<a class="headerlink" href="#class-description" title="Link to this heading">#</a></h2>
+<p>The <em>Waveform</em> class is the first in the reconstruction analysis chain, serving as the precursor the <em>Event</em> class. It handles a single waveform readout from one PMT trigger:</p>
+<ul class="simple">
+<li><p>Reading of the csv and conversion to numpy arrays</p></li>
+<li><p>Rescaling (i.e. making the signal positive, converting time units to nanometres and voltage to millivolts)</p></li>
+<li><p>Baseline caluclation and corrections</p></li>
+<li><p>Smoothing</p></li>
+<li><p>Peak and ingress detection</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">ProjectRoot</span><span class="p">,</span> <span class="n">LocalDataPath</span><span class="p">,</span> <span class="n">PlotsPath</span>
@@ -438,16 +448,6 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="class-description">
-<h2>Class Description<a class="headerlink" href="#class-description" title="Link to this heading">#</a></h2>
-<p>The <em>Waveform</em> class is the first in the reconstruction analysis chain, serving as the precursor the <em>Event</em> class. It handles a single waveform readout from one PMT trigger:</p>
-<ul class="simple">
-<li><p>Reading of the csv and conversion to numpy arrays</p></li>
-<li><p>Rescaling (i.e. making the signal positive, converting time units to nanometres and voltage to millivolts)</p></li>
-<li><p>Baseline caluclation and corrections</p></li>
-<li><p>Smoothing</p></li>
-<li><p>Peak and ingress detection</p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># -- Define parameters -- #</span>
