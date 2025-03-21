@@ -159,8 +159,9 @@ class Waveform:
                 baseline = bin_mids[max_idx]
                 self.baseline = baseline
         except Exception as e:
-            print("Failed to calculate baseline")
-            print(e)
+            #print("Failed to calculate baseline")
+            #print(e)
+            pass
 
         """
         except ValueError:

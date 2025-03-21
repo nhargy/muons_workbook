@@ -60,13 +60,15 @@ class Event:
         try:
             waveform.calculate_baseline(verbose=True)
         except:
-            print("Failed to calculate baseline")
+            #print("Failed to calculate baseline")
+            pass
 
         try:
             waveform.zero_baseline()
         except:
-            print("Failed to zero baseline")
-            print(waveform.csvfile)
+            #print("Failed to zero baseline")
+            #print(waveform.csvfile)
+            pass
         waveform.smooth()
 
 
