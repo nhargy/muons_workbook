@@ -383,7 +383,7 @@ document.write(`
 <h1>Calibration View<a class="headerlink" href="#calibration-view" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span>
 <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">utils.functions</span> <span class="kn">import</span> <span class="n">linear</span>
@@ -400,7 +400,7 @@ document.write(`
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">config.settings</span> <span class="kn">import</span> <span class="n">OutPath</span><span class="p">,</span> <span class="n">PlotsPath</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">linear_popt</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">config.plot_config</span> <span class="kn">import</span> <span class="n">set_plot_style</span><span class="p">;</span> <span class="n">set_plot_style</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">utils.functions</span> <span class="kn">import</span> <span class="n">linear</span>
 
@@ -475,15 +475,15 @@ document.write(`
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">144</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">x_positions</span><span class="p">)</span>
 
-<span class="n">savefig</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">()</span>
+<span class="n">savefig</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PlotsPath</span><span class="p">,</span> <span class="s1">&#39;calib_nice.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">,</span> <span class="n">dpi</span> <span class="o">=</span> <span class="mi">450</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0421c5c8ecf2ee1f83fb1ae2097d044070e609507948c304ae7103c6661f093c.png" src="../_images/0421c5c8ecf2ee1f83fb1ae2097d044070e609507948c304ae7103c6661f093c.png" />
+<img alt="../_images/d694140673f5876d98d89a0fc8e8f7650f19e6295360bf98ed84899dee772df7.png" src="../_images/d694140673f5876d98d89a0fc8e8f7650f19e6295360bf98ed84899dee772df7.png" />
 </div>
 </div>
 </section>

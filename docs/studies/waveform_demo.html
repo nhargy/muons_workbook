@@ -666,7 +666,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b28b001bf8435d4b49c9910b23751f07dcd8beb18ed4e0a0eb45b979b3ebe7af.png" src="../_images/b28b001bf8435d4b49c9910b23751f07dcd8beb18ed4e0a0eb45b979b3ebe7af.png" />
+<img alt="../_images/300d9897652b2eab252ed5968730fc8c3ce13e8b6689bdc3663e4e952aacd1aa.png" src="../_images/300d9897652b2eab252ed5968730fc8c3ce13e8b6689bdc3663e4e952aacd1aa.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -700,7 +700,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4b1951ffc224455d7e99e07ac280d04d3db72c68c76c906d83e650b572146aa4.png" src="../_images/4b1951ffc224455d7e99e07ac280d04d3db72c68c76c906d83e650b572146aa4.png" />
+<img alt="../_images/bc54b4e6e9bb11550213453ea49aef8359e08f016da75bd9cc2bb7a1af64a966.png" src="../_images/bc54b4e6e9bb11550213453ea49aef8359e08f016da75bd9cc2bb7a1af64a966.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -735,7 +735,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-18.896772451875634
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;\n# Convert region of interest to index\nx,y = wf.get_data(zipped=False)\na = np.argmin(np.abs(x - ROI_t[0]))\nb = np.argmin(np.abs(x - ROI_t[1]))\n\nROI_idx = [a,b]\n\nwf.identify_ingress(25, ROI_idx)\n\ntry:\n    ingress_idx, ingress_time_val = wf.get_ingress()\n    plt.scatter(x[ingress_idx], y[ingress_idx], color = \&#39;black\&#39;, \n                zorder=3, label = f&quot;Ingress Bin: {np.round(ingress_time_val,2)} [ns].&quot;)\nexcept:\n    print(&quot;Failed to detect ingress time.&quot;)\n\nplt.axvspan(ROI_t[0], ROI_t[0], color = \&#39;lawngreen\&#39;, alpha = 0.2, label = \&#39;ROI\&#39;)\n\nplt.xlabel(&quot;Time [nanoseconds]&quot;)\nplt.ylabel(&quot;Voltage [milivolts]&quot;)\n\nplt.xlim(x[PLOT_CUT], x[-PLOT_CUT])\nplt.legend()\nplt.plot(x,y);\n&#39;
 </pre></div>
 </div>
 </div>
@@ -827,7 +827,7 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Arrival time delay: 4.67 [ns]
 </pre></div>
 </div>
-<img alt="../_images/0cb89d5a08d60d71a4bc4698ac70c176fc39907515b434f04d4e1a4136cf4b5c.png" src="../_images/0cb89d5a08d60d71a4bc4698ac70c176fc39907515b434f04d4e1a4136cf4b5c.png" />
+<img alt="../_images/168f79b299a4d50bf53868564a3f3b6660bf71fba5513ce6b4345c9b933d6f56.png" src="../_images/168f79b299a4d50bf53868564a3f3b6660bf71fba5513ce6b4345c9b933d6f56.png" />
 </div>
 </div>
 </section>
