@@ -8,3 +8,4 @@ chapters:
 - file: studies/waveform_demo
 - file: studies/event_demo
 - file: studies/calibration_view
+- file: studies/rates_and_angles
