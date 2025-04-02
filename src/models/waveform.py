@@ -294,7 +294,7 @@ class Waveform:
             # Find indices where y crosses the threshold
             idx_below = np.where(wf_cut < threshold)[0][-1]  # Last index where y is below threshold
             idx_above = np.where(wf_cut > threshold)[0][0]  # First index where y is above threshold
-
+            
             # Perform linear interpolation
             x_target = np.interp(threshold, [y[a+idx_below], y[a+idx_above]], [x[a+idx_below], x[a+idx_above]])
             """(CHATGPT END)"""

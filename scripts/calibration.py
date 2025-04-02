@@ -42,6 +42,8 @@ pos_err     = 1 #cm
 
 N = 120
 
+count_arr = []
+
 def collect_dts(runs):
     dts = []
     for run in runs:
@@ -78,8 +80,10 @@ def collect_dts(runs):
                 dt = delta_t_array[1]
                 dts.append(np.round(dt,2))
 
+
             except:
                 pass
+                
 
     dts = np.array(dts)
     dts = np.round(dts[~np.isnan(dts)],2)
@@ -97,6 +101,53 @@ CL = collect_dts([20,21])
 C  = collect_dts([22,23,24])
 CR = collect_dts([25,26,27])
 R  = collect_dts([28,29,30])
+
+L1 = collect_dts([17])
+L2 = collect_dts([18])
+L3 = collect_dts([19])
+save_path = os.path.join(OutPath, "L1.npy")
+np.save(save_path, L1)
+save_path = os.path.join(OutPath, "L2.npy")
+np.save(save_path, L2)
+save_path = os.path.join(OutPath, "L3.npy")
+np.save(save_path, L3)
+
+CL1 = collect_dts([20])
+CL2 = collect_dts([21])
+save_path = os.path.join(OutPath, "CL1.npy")
+np.save(save_path, CL1)
+save_path = os.path.join(OutPath, "CL2.npy")
+np.save(save_path, CL2)
+
+C1  = collect_dts([22])
+C2  = collect_dts([23])
+C3  = collect_dts([24])
+save_path = os.path.join(OutPath, "C1.npy")
+np.save(save_path, C1)
+save_path = os.path.join(OutPath, "C2.npy")
+np.save(save_path, C2)
+save_path = os.path.join(OutPath, "C3.npy")
+np.save(save_path, C3)
+
+CR1  = collect_dts([25])
+CR2  = collect_dts([26])
+CR3  = collect_dts([27])
+save_path = os.path.join(OutPath, "CR1.npy")
+np.save(save_path, CR1)
+save_path = os.path.join(OutPath, "CR2.npy")
+np.save(save_path, CR2)
+save_path = os.path.join(OutPath, "CR3.npy")
+np.save(save_path, CR3)
+
+R1  = collect_dts([28])
+R2  = collect_dts([29])
+R3  = collect_dts([30])
+save_path = os.path.join(OutPath, "R1.npy")
+np.save(save_path, R1)
+save_path = os.path.join(OutPath, "R2.npy")
+np.save(save_path, R2)
+save_path = os.path.join(OutPath, "R3.npy")
+np.save(save_path, R3)
 
 hist_arr = [L, CL, C, CR, R]
 mean_arr = []
@@ -166,6 +217,7 @@ plt.savefig(save_path)
 
 plt.show()
 plt.close()
+
 
 
 # =======================

@@ -436,7 +436,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># -- Define parameters -- #</span>
 
 <span class="c1"># Choose the run number</span>
-<span class="n">run</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">run</span> <span class="o">=</span> <span class="mi">16</span>
 
 <span class="c1"># Plotting window x-cuts</span>
 <span class="n">PLOT_CUT</span> <span class="o">=</span> <span class="mi">100</span>
@@ -472,9 +472,9 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick scope, segment and channel</span>
-<span class="n">scope</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># [1,2]</span>
-<span class="n">seg</span>   <span class="o">=</span> <span class="mi">5</span>
-<span class="n">ch</span>    <span class="o">=</span> <span class="mi">3</span> <span class="c1"># [1,8] for Runs [1,16], [1,4] for Runs [17, 30] </span>
+<span class="n">scope</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># [1,2]</span>
+<span class="n">seg</span>   <span class="o">=</span> <span class="mi">10</span>
+<span class="n">ch</span>    <span class="o">=</span> <span class="mi">4</span> <span class="c1"># [1,8] for Runs [1,16], [1,4] for Runs [17, 30] </span>
 
 <span class="c1"># Raw waveform loading</span>
 <span class="n">csvpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">/scope-</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">-seg</span><span class="si">{</span><span class="n">seg</span><span class="si">}</span><span class="s2">-ch</span><span class="si">{</span><span class="n">ch</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
@@ -620,37 +620,42 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/41b6178fb17ec700c988eea6468568d1c0a6cb431637aaac5d93e27d2e9e3ac2.png" src="../_images/41b6178fb17ec700c988eea6468568d1c0a6cb431637aaac5d93e27d2e9e3ac2.png" />
-<img alt="../_images/bd9afc00cd57f6bbd935af6da6f8948f2c41c6269c658e090d02caa8e93d4bd5.png" src="../_images/bd9afc00cd57f6bbd935af6da6f8948f2c41c6269c658e090d02caa8e93d4bd5.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Failed to calculate baseline
-attempt to get argmax of an empty sequence
-</pre></div>
-</div>
-<img alt="../_images/124830f632c5f26f54a5051e6b426066d1bddd7b0e0c117446161bf93f2d080f.png" src="../_images/124830f632c5f26f54a5051e6b426066d1bddd7b0e0c117446161bf93f2d080f.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Failed to calculate baseline
-attempt to get argmax of an empty sequence
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">61</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Voltage [milivolts]&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">61</span> <span class="n">wf</span><span class="o">.</span><span class="n">zero_baseline</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">63</span> <span class="c1"># Plot waveform before zeroing</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">zipped</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<img alt="../_images/b2704ad67a4095f60da23ab11a15a23b4d98bb34ae2ea0826feed81072fc2b39.png" src="../_images/b2704ad67a4095f60da23ab11a15a23b4d98bb34ae2ea0826feed81072fc2b39.png" />
+<img alt="../_images/aded046df7b5f948a17386a9546bf9a742c9c8c6c6765586b6142a32793bcab9.png" src="../_images/aded046df7b5f948a17386a9546bf9a742c9c8c6c6765586b6142a32793bcab9.png" />
+<img alt="../_images/f6ce8487954f3ff5ab4e030a230d528a058e89b3953696d43d3daeda6062e3b5.png" src="../_images/f6ce8487954f3ff5ab4e030a230d528a058e89b3953696d43d3daeda6062e3b5.png" />
+<img alt="../_images/0f457871a67e905dc27b72b4e2cbef94172f43ea6f9fdb8c7a93f56f5af3c83e.png" src="../_images/0f457871a67e905dc27b72b4e2cbef94172f43ea6f9fdb8c7a93f56f5af3c83e.png" />
+<img alt="../_images/8906e8423dbd739bf83c1f7807dedac63500049380c11f1fa1413174259606bd.png" src="../_images/8906e8423dbd739bf83c1f7807dedac63500049380c11f1fa1413174259606bd.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-3.38379889e+00 -3.96097965e+00 -4.48697755e+00 -4.54073650e+00
+ -3.88341149e+00 -2.75135590e+00 -1.64233614e+00 -8.87831851e-01
+ -4.38786796e-01 -1.91788236e-03  6.04925007e-01  1.19237703e+00
+  1.35440331e+00  9.48579606e-01  3.26385131e-01 -1.74730485e-02
+  8.12638688e-03 -9.66692368e-03 -5.28874330e-01 -1.57184237e+00
+ -2.74136641e+00 -3.62432773e+00 -4.07851028e+00 -4.16509577e+00
+ -3.96757181e+00 -3.56029160e+00 -3.05959904e+00 -2.59364224e+00
+ -2.20189063e+00 -1.80208237e+00 -1.29476426e+00 -6.79639136e-01
+ -4.70343004e-02  4.75853303e-01  7.34701809e-01  6.40585700e-01
+  4.10930009e-01  7.02496192e-01  2.44916231e+00  6.67131530e+00
+  1.45422148e+01  2.74709851e+01  4.67008210e+01  7.24267271e+01
+  1.03220021e+02  1.36593435e+02  1.70419256e+02  2.03802558e+02
+  2.36545070e+02  2.67988869e+02  2.96581757e+02  3.20359140e+02
+  3.37586135e+02  3.47148355e+02]
 
-<span class="nn">File ~/Science/JBooks/muons_workbook/src/models/waveform.py:189,</span> in <span class="ni">Waveform.zero_baseline</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span> <span class="n">baseline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_baseline</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">189</span> <span class="n">baseline_corrected_data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">baseline</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">191</span> <span class="bp">self</span><span class="o">.</span><span class="n">processed_data</span> <span class="o">=</span> <span class="n">baseline_corrected_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">193</span> <span class="c1"># Recalculate baseline for comparison</span>
-
-<span class="ne">TypeError</span>: unsupported operand type(s) for -: &#39;float&#39; and &#39;NoneType&#39;
+40 41
 </pre></div>
 </div>
-<img alt="../_images/017cf3196a282e43513ea74cb8d4e0cc140be7558d6192b69bfcc71217f2e870.png" src="../_images/017cf3196a282e43513ea74cb8d4e0cc140be7558d6192b69bfcc71217f2e870.png" />
+<img alt="../_images/6652a4869d4c0c8070862a9e525b2e76504cc89de3332a7684a9fe5759db2ee1.png" src="../_images/6652a4869d4c0c8070862a9e525b2e76504cc89de3332a7684a9fe5759db2ee1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(1.2000000000000002)
+</pre></div>
+</div>
 </div>
 </div>
 </section>

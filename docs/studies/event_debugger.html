@@ -433,7 +433,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">seg</span> <span class="o">=</span> <span class="mi">89</span>
+<span class="n">seg</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">run_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LocalDataPath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Run</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">run_path</span><span class="p">,</span> <span class="n">seg</span><span class="p">)</span>
 
@@ -503,6 +503,7 @@ document.write(`
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scope time bin size: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
 
 <span class="n">hit_coordinates</span>  <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">hit_coordinates</span>
 <span class="n">track_popt</span>       <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">track_popt</span>
@@ -557,17 +558,18 @@ unsupported operand type(s) for *: &#39;NoneType&#39; and &#39;float&#39;
 No ingress detected
 </pre></div>
 </div>
-<img alt="../_images/9a807255bb915e4d5c06dd0c7e6108d47c5a5145f8298365a434066168225d33.png" src="../_images/9a807255bb915e4d5c06dd0c7e6108d47c5a5145f8298365a434066168225d33.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------+-------+
+<img alt="../_images/aa939fe750920bf200bc8530e3425fa32dc5fabc25d9d764a72ff85addf58ad7.png" src="../_images/aa939fe750920bf200bc8530e3425fa32dc5fabc25d9d764a72ff85addf58ad7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scope time bin size:  1.2
++-----------+-------+
 |  Property | Value |
 +-----------+-------+
-| Timestamp |  2.4  |
-|   Angle   | 10.28 |
+| Timestamp |  0.31 |
+|   Angle   |  4.86 |
 |    Hits   |   3   |
 +-----------+-------+
 </pre></div>
 </div>
-<img alt="../_images/1ba48d885271e229ce7645aa6eb632b24db817d2a80ed8599148b12fa06d48ba.png" src="../_images/1ba48d885271e229ce7645aa6eb632b24db817d2a80ed8599148b12fa06d48ba.png" />
+<img alt="../_images/b923a73b3e3aa738581c9710ffbfbb7ce7ddf9e6cd18ea299a6de3a10a0a520e.png" src="../_images/b923a73b3e3aa738581c9710ffbfbb7ce7ddf9e6cd18ea299a6de3a10a0a520e.png" />
 </div>
 </div>
 </section>
