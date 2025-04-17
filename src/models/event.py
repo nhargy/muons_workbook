@@ -147,26 +147,33 @@ class Event:
         
         for idx, hit in enumerate(hit_coordinates):
             if hit < min_hit:
-                hit_coordinates[idx] = min_hit
+                #hit_coordinates[idx] = min_hit
+                hit_coordinates[idx] = np.nan
             elif hit > max_hit:
-                hit_coordinates[idx] = max_hit
+                #hit_coordinates[idx] = max_hit
+                hit_coordinates[idx] = np.nan
         
         # Remove NaN values
         valid_indices = ~np.isnan(positions) & ~np.isnan(hit_coordinates)
         x_clean = positions[valid_indices]
         y_clean = hit_coordinates[valid_indices]
 
-        # Fit track to linear function
-        popt, pcov = curve_fit(linear, x_clean, y_clean)
+        if len(valid_indices) > 1:
 
-        gradient = popt[0]
-        delta_gradient = pcov[0][0]**2
-        angle    = -np.arctan(gradient) * 180/np.pi
-        
+            # Fit track to linear function
+            popt, pcov = curve_fit(linear, x_clean, y_clean)
+    
+            gradient = popt[0]
+            delta_gradient = pcov[0][0]**2
+            angle    = -np.arctan(gradient) * 180/np.pi
+            
+    
+            self.angle = angle
+            self.track_popt = popt
+            self.hit_coordinates = hit_coordinates
 
-        self.angle = angle
-        self.track_popt = popt
-        self.hit_coordinates = hit_coordinates
+        else:
+            pass
 
 
     """ =========== """
